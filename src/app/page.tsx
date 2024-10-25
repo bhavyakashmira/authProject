@@ -1,12 +1,11 @@
 "use client"
 import { signOut, useSession } from "next-auth/react";
-import Image from "next/image";
-import CategoryList from "@/components/CategoryList";
 import BookList from "@/components/BookList";
-import Pagination from "@/components/Pagination";
 import Navbar from "@/subcomponents/Navbar";
 import HeroSec from "@/subcomponents/HeroSec";
-import BookCard from "@/components/BookCard";
+import { Footer } from "@/components/Footer";
+import { CategroyBooks } from "@/components/CategoryBooks";
+import { Feature } from "@/components/Features";
 
 
 interface HomeProps {
@@ -25,8 +24,11 @@ export default function Home({ searchParams }: HomeProps) {
     <div>
       <Navbar />
       <HeroSec />
-      {/* mapping books */}
       <BookList page={page} />
+      <Feature/>
+      <CategroyBooks/>
+
+      <Footer/>
 
    </div>
   );

@@ -1,12 +1,13 @@
 "use client"
-import Comments from '@/components/Comments';
-import Navbar from '@/subcomponents/Navbar';
-import { Bookmark, BookMarked, Eye, Heart } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Book, Bookmark, BookMarked, Eye, Heart, Trash2Icon } from 'lucide-react';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
+import ChapterCont from '@/subcomponents/ChapterCont';
+import { useSession } from 'next-auth/react';
 
 type Book = {
-    _id: string;
+    id: string;
     slug: string;
     title: string;
     user?: {
@@ -22,11 +23,13 @@ interface BookPageProps {
 }
 
 const Page: React.FC<BookPageProps> = ({ params }) => {
+
+    const session = useSession();
     const { slug } = params;
+    const router = useRouter();
     const [data, setData] = useState<Book | null>(null);
     const [error, setError] = useState<string | null>(null);
    
-    
     useEffect(() => {
         const getData = async () => {
             try {
@@ -44,26 +47,47 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
         };
 
         getData();
-    }, [slug]); // use slug as the dependency, not the page function
+    }, [slug]); 
 
 
+    const handleDelete = async (id: String) => {
+        
+        try {
+
+            const res = await fetch("/api/books", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ id }),
+            });
+
+            if (!res.ok) {
+                throw new Error('Failed to delete comment');
+            }
+
+
+            
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
     if (error) {
         return <div>Error: {error}</div>;
     }
     return (
         <div className='' >
-            <Navbar/>
-        
             {data ? <> 
                 
                 <div className='grid grid-cols-2 p-5 items-center mr-10 ml-10  ' >
                 <div>
-                    <Image className=' shadow-xl' src="https://d1b14unh5d6w7g.cloudfront.net/0007448031.01.S001.JUMBOXXX.jpg?Expires=1728810813&Signature=NHIvs4vYlU09E14tqShMBrNTjl435LAqmmmGJKTR~rnOxmeyUP2gpG6wdMcc48whcCfqFNEWAROwKWyK6s7jp6uvZDG~2l61uhI6X0culw~ZuH0VPuewu1X2WtfMnnWz7N1Z2RPAkO5STLEk30SwR-qmxHfJiRqLt0hxaBfzNcE_&Key-Pair-Id=APKAIUO27P366FGALUMQ" width={300} height={500} alt="" />
+                    <Image className=' shadow-xl' src={data.img} width={300} height={500} alt="" />
                 </div>
                     <div>
                         <p className='text-xl font-bold' >{data.title}</p>
                         <h1> by <span className='text-xl font-bold' >{data.user?.name}</span> </h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error eligendi culpa porro quod sunt. Quaerat vitae quisquam dolor consequuntur quis, animi, nulla, optio sed nemo molestiae laborum voluptate! Cupiditate, aspernatur.</p>
+                        <p>{data.desc}</p>
                         <div className='flex items-center gap-2' > 
                             <button className='bg-black p-2 m-2 text-white rounded-xl' >start reading</button>
                             <Bookmark />
@@ -72,12 +96,33 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
                         </div>
                         
                     </div>
+
+                    <div>
+                        {data?.user?.email === session.data?.user?.email  &&
+                            (
+                            <>
+                                <button className='bg-black text-white p-2'
+                                    onClick={() => router.push(`/write/${slug}`)}
+                                >add chapter</button>
+                                <Trash2Icon size={30}  onClick={()=>handleDelete(data.id)} />
+                            
+                            </> 
+                            )}
+                    </div>
                 </div>
+                <div className='p-2' >
+                    <h1 className='text-3xl font-bold' >chapters {data.chapters.length} </h1>
+                    {data.chapters.map((dat, ind) =>
+                        <ChapterCont data={dat} slug={slug} userEmail ={data?.user?.email}  email={session.data?.user?.email}  />
+                    )}
+                </div>
+
+               
                 
                
-            </> : <p>Loading...</p>}
-
-            <Comments bookSlug={slug} />
+            </> : <p>NO SUCH BOOK.</p>}
+                
+         
             
             
         </div>

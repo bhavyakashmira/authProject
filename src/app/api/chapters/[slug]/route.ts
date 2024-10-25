@@ -1,37 +1,37 @@
+import { NextResponse, NextRequest } from "next/server";
 import prisma from "@/utils/connect";
-import { NextRequest, NextResponse } from "next/server";
 
-//get single book
 
-interface BookPageProps {
+interface ChapterProps {
     params: {
-        slug: string;
-    };
-
+        slug: string
+    }
 }
 
-//get specific book 
-export const GET = async (req: Request , {params}:BookPageProps) => {
-
-   const {slug} =params
-
+export const GET = async (req: NextRequest , {params}:ChapterProps) => {
+    
     try {
-        const post = await prisma.book.findUnique({
-            where: { slug },
-            include:{user:true , chapters:true}
+    
+        const { slug } = params;
+   
+        const chapter = await prisma.chapter.findUnique({
+            where:{slug}
         })
-       
-        return new NextResponse(JSON.stringify({ post }))
 
-    } catch (e) {
-        console.log(e);
-        return new NextResponse(JSON.stringify({ "message": "something wrong" }))
+        return new NextResponse(JSON.stringify(chapter))
+
+
+        
+    } catch (error) {
+
+        return new NextResponse(JSON.stringify({message : "something wrong"}))
+        
     }
 }
 
 
 // post a chapter 
-export const POST = async (req: NextRequest) =>{
+export const POST = async (req: NextRequest) => {
     try {
         // Parse the request body
         const body = await req.json();
@@ -43,7 +43,7 @@ export const POST = async (req: NextRequest) =>{
         // If no book is found, return an error
         if (!existingBook) {
             console.log("not exist");
-            
+
             return new NextResponse(JSON.stringify({ error: 'Book not found' }), { status: 404 });
         }
 
@@ -52,7 +52,8 @@ export const POST = async (req: NextRequest) =>{
             data: {
                 story: body.story,
                 title: body.title,
-                img: body.img , 
+                description: body.desc,
+                img: body.img,
                 bookslug: body.bookslug, // Associate the chapter with the book
                 slug: body.slug, // Unique slug for the chapter
             },
@@ -61,8 +62,11 @@ export const POST = async (req: NextRequest) =>{
         // Return success response with the created chapter
         return new NextResponse(JSON.stringify({ chapter }), { status: 201 });
 
-    } catch (error:any) {
+    } catch (error: any) {
         console.error('Error creating chapter:', error);
         return new NextResponse(JSON.stringify({ error: error.message }), { status: 500 });
     }
 };
+
+
+

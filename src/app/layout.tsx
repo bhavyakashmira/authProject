@@ -20,9 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <body
       >
-        <div className="grid grid-cols-10" >
+        <div className="grid grid-cols-12" >
           <Sidebar />
-          <div className="col-span-8" >
+          <div className="col-span-11" >
         <AuthProviders>
           {children}
             </AuthProviders>

@@ -13,10 +13,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//add the username unique as the route
+
 model User {
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
   email         String          @unique
+  firstName     String?
+  lastName      String?
+  username      String?         @unique
+  dateOfBirth   DateTime?
   emailVerified DateTime?
   image         String?
   accounts      Account[]
@@ -99,25 +105,27 @@ model Book {
   createdAt  DateTime   @default(now())
   slug       String     @unique
   title      String
+  desc       String
+  likes      Int      @default(0)
   img        String?
   chapters   Chapter[]  // Changed "chapter" to plural
   userEmail  String
   user       User       @relation(fields: [userEmail], references: [email])
-  comments   Comment[]  // Changed "comment" to plural
   catslug    String
-  category   Category   @relation(fields: [catslug], references: [slug]) // Renamed "cat" to "category" for clarity
+  category   Category   @relation(fields: [catslug], references: [slug]) 
 }
-
+ 
 model Chapter {
   id         String    @id @default(cuid()) @map("_id")
   createdAt  DateTime  @default(now())
   slug       String    @unique
+  story      String
   title      String
   img        String?
   views      Int       @default(0)
   bookslug   String
   book       Book      @relation(fields: [bookslug], references: [slug])
-  comments   Comment[] // Changed "comment" to plural
+  comments   Comment[] 
 }
 
 model Comment {
@@ -128,6 +136,4 @@ model Comment {
   user        User      @relation(fields: [userEmail], references: [email])
   chapterSlug String
   chapter     Chapter   @relation(fields: [chapterSlug], references: [slug])
-  bookSlug    String
-  book        Book      @relation(fields: [bookSlug], references: [slug])
 }
