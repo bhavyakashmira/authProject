@@ -1,7 +1,7 @@
 import prisma from "@/utils/connect";
 import { NextRequest, NextResponse } from "next/server";
 
-//get single book
+//get single book 
 
 interface BookPageProps {
     params: {

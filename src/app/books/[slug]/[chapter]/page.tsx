@@ -6,7 +6,7 @@ import Comments from '@/components/Comments';
 
 interface ChapterProp {
   params: {
-    chapter: string
+    chapter: String
   };
 }
 
