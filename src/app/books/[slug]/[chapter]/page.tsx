@@ -11,13 +11,15 @@ interface ChapterProp {
 }
 
 type Chapter = {
-  bookSlug: String,
-  id:String , 
-  img: String,
-  slug : String,
-  story:String , 
-  title: String
-
+  bookSlug: string,
+  id: string; 
+  img: string,
+  slug : string,
+  story:string , 
+  title: string,
+  views: string,
+  description: string,
+  createdAt : string
 }
 
 
@@ -63,12 +65,12 @@ function page({ params }:ChapterProp) {
           <h2>{Chapter.views}</h2>
           <h2>{Chapter.createdAt}</h2>
           <p>{Chapter.description}</p>
-          <p>{Chapter.story}</p>
-          <Image width={100} height={100} src={Chapter.img} alt="" />
+          <div dangerouslySetInnerHTML={{ __html: Chapter.story }} />
+          {Chapter.img && <Image width={100} height={100} src={Chapter.img} alt="" />
+          }
+         
   
           <Comments chapterSlug={Chapter.slug}  />
-          
-
         </> :
         <div>NO chapter found </div>
     }

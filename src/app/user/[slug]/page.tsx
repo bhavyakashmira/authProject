@@ -15,13 +15,23 @@ type user = {
   name: string;
   email: string;
   image: string;
+  books: string[];
+  username: string;
+  bio: string;
+
 };
 
-function page({ params }) {
+interface pageProps  {
+  params: {
+    slug : String
+  }
+}
+
+function page({ params }: pageProps) {
   const { slug } = params;
   const router = useRouter();
   const [user, setuser] = useState<user>();
-  const [error, setError] = useState();
+  const [error, setError] = useState<string | null>(null);
   const [userEmail, setUseremail] = useState();
   const [coverImg, setCoverImg] = useState(null);
   const [profileImg, setProfileImg] = useState(null);
@@ -45,7 +55,7 @@ function page({ params }) {
         setuser(result.user);
         setUseremail(result.user.email);
       } catch (error) {
-        setError(error);
+        setError((error as Error).message);
       }
     };
     getData();
@@ -102,7 +112,7 @@ function page({ params }) {
                 className='h-52 w-full object-cover'
                 alt='cover image'
               />
-              {(session?.data?.user?.email === user.email) && (
+              {(session?.data?.user?.email === user.email) && coverImgRef.current &&  (
                 <div
                   className='absolute top-2 right-2 rounded-full p-2 bg-gray-800 bg-opacity-75 cursor-pointer opacity-0 group-hover/cover:opacity-100 transition duration-200'
                   onClick={() => coverImgRef.current.click()}
@@ -146,7 +156,9 @@ function page({ params }) {
                 <span className='text-sm text-slate-500'>{user?.username}</span>
                 <span className='text-sm my-1'>{user?.bio}</span>
               </div>
-          
+           
+              {/*   ADD FOLLOWING FEATURES
+              
               <div className='flex gap-2'>
                 <div className='flex gap-1 items-center'>
                   <span className='font-bold text-xs'>{user?.following?.length  || 0}</span>
@@ -156,7 +168,7 @@ function page({ params }) {
                   <span className='font-bold text-xs'> {user?.followers?.length  || '0'}</span>
                   <span className='text-slate-500 text-xs'>Followers</span>
                 </div>
-              </div>
+              </div> */}
             </div>
      
 

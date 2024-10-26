@@ -10,11 +10,27 @@ type Book = {
     id: string;
     slug: string;
     title: string;
+    img: string;
+    desc: string;
     user?: {
+        email: string;
         name: string;
         image: string;
     };
+    chapters: Chapter[];
 };
+
+type Chapter = {
+    bookSlug: string,
+    id: string;
+    img: string,
+    slug: string,
+    story: string,
+    title: string,
+    views: string,
+    description: string,
+    createdAt: string
+}
 
 interface BookPageProps {
     params: {
@@ -113,7 +129,7 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
                 <div className='p-2' >
                     <h1 className='text-3xl font-bold' >chapters {data.chapters.length} </h1>
                     {data.chapters.map((dat, ind) =>
-                        <ChapterCont data={dat} slug={slug} userEmail ={data?.user?.email}  email={session.data?.user?.email}  />
+                        <ChapterCont data={dat} slug={slug} userEmail ={data?.user?.email || ''}  email={session.data?.user?.email || ''}  />
                     )}
                 </div>
 

@@ -1,5 +1,4 @@
 "use client"
-import { log } from 'console'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import React, { useState } from 'react'

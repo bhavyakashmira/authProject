@@ -11,12 +11,13 @@ type user = {
      name: string;
     email: string;
     image: string;
+    books: string[]
 };
 
 function page() {
     const router = useRouter();
     const [user, setuser] = useState<user>();
-    const [error, setError] = useState();
+    const [error, setError] = useState<string | null>(null);
     const [userEmail, setUseremail] = useState();
     useEffect(() => {
         const getData = async () => {
@@ -30,7 +31,7 @@ function page() {
                 setuser(result.user);
                 setUseremail(result.user.email);
             } catch (error) {
-                setError(error);
+                setError((error as Error).message);
             }
         };
         getData();
