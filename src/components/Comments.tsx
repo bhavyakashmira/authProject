@@ -36,7 +36,7 @@ interface Comment {
 function Comments({ chapterSlug }:commentsProps) {
     const { status } = useSession();
     
-    const { data, mutate, isLoading } = useSWR<Comment[]>(`http://localhost:3000/api/comments?chapterSlug=${chapterSlug}`, fetcher)
+    const { data, mutate, isLoading } = useSWR<Comment[]>(`/api/comments?chapterSlug=${chapterSlug}`, fetcher)
     const [desc, setDesc] = useState("");
 
 

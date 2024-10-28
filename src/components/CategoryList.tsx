@@ -13,7 +13,7 @@ const CategoryList = () => {
     useEffect(() => {
         const getData = async () => {
             try {
-                const res = await fetch('http://localhost:3000/api/category', {
+                const res = await fetch('/api/category', {
                     cache: "no-store"
                 });
 

@@ -25,7 +25,7 @@ const BookList: React.FC<BookListProps> = ({ page=2  , cat=""  , bookcount }) =>
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/books?page=${page}&cat=${cat}`, {
+        const res = await fetch(`/api/books?page=${page}&cat=${cat}`, {
           cache: "no-store"
         });
         if (!res.ok) {
