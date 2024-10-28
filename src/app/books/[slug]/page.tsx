@@ -49,7 +49,7 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
     useEffect(() => {
         const getData = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/api/books/${slug}`, {
+                const res = await fetch(`/api/books/${slug}`, {
                     cache: 'no-store',
                 });
                 if (!res.ok) {
