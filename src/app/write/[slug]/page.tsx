@@ -95,7 +95,6 @@ const WritePage = ({params}) => {
             method: "POST",
             body: JSON.stringify({
                 title,
-
                 story: value,
                 img: media,
                 slug: slugify(title),

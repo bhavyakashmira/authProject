@@ -47,12 +47,11 @@ export const POST = async (req: NextRequest) => {
             return new NextResponse(JSON.stringify({ error: 'Book not found' }), { status: 404 });
         }
 
-        // Create the new chapter associated with the existing book
+        // Create the new chapter associated with the existing book 
         const chapter = await prisma.chapter.create({
             data: {
                 story: body.story,
                 title: body.title,
-                description: body.desc,
                 img: body.img,
                 bookslug: body.bookslug, // Associate the chapter with the book
                 slug: body.slug, // Unique slug for the chapter
