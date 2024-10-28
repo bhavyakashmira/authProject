@@ -27,9 +27,7 @@ export default function Home({ searchParams }: HomeProps) {
       <BookList page={page} />
       <Feature/>
       <CategroyBooks/>
-
       <Footer/>
-
    </div>
   );
 }

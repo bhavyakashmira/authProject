@@ -6,7 +6,7 @@ import Comments from '@/components/Comments';
 
 interface ChapterProp {
   params: {
-    chapter: String
+    chapter: string
   };
 }
 
@@ -82,4 +82,4 @@ function page({ params }:ChapterProp) {
   )
 }
 
-export default page
+export default page;
