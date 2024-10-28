@@ -177,7 +177,7 @@ const WritePage = ({params}:WriteProps) => {
             </div>
 
             <button className={styles.publish} onClick={handleSubmit}>
-                Publish
+                Publish rn
             </button>
         </div>
     );
