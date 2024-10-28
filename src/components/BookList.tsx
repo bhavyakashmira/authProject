@@ -6,6 +6,7 @@ type Books = {
   _id: string;
   slug: string;
   title: string;
+  img: string;
 };
 
 interface BookListProps {

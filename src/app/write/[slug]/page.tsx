@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import styles from "./writePage.module.css";
-import { useEffect, useState } from "react";
+import React , { useEffect, useState , ChangeEvent} from "react";
 import "react-quill/dist/quill.bubble.css";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -18,50 +18,60 @@ import ReactQuill from "react-quill";
 import { File, Plus, VideoIcon } from "lucide-react";
 import { BiPhotoAlbum } from "react-icons/bi";
 
+interface WriteProps{
+    params: {
+        slug :string
+    }
+}
 
-const WritePage = ({params}) => {
+const WritePage = ({params}:WriteProps) => {
     const { status } = useSession();
     const router = useRouter();
     const { slug } = params;
 
     const [open, setOpen] = useState(false);
-    const [file, setFile] = useState(null);
-    const [media, setMedia] = useState("");
+    const [file, setFile] = useState<File | null>(null);
+    const [media, setMedia] = useState<string>("");
+    const [title, setTitle] = useState<string>("");
+    const [catSlug, setCat] = useState<string>("");
     const [value, setValue] = useState("");
-    const [title, setTitle] = useState("");
-    const [catSlug, setCatSlug] = useState("");
+
 
 
     useEffect(() => {
         
         const storage = getStorage(app);
         const upload = () => {
-            const name = new Date().getTime() + file.name;
-            const storageRef = ref(storage, name);
-            const uploadTask = uploadBytesResumable(storageRef, file);
-            setOpen(false)
-            uploadTask.on(
-                "state_changed",
-                (snapshot) => {
-                    const progress =
-                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log("Upload is " + progress + "% done");
-                    switch (snapshot.state) {
-                        case "paused":
-                            console.log("Upload is paused");
-                            break;
-                        case "running":
-                            console.log("Upload is running");
-                            break;
+            if (file) {
+                const name = new Date().getTime() + file.name;
+                const storageRef = ref(storage, name);
+                const uploadTask = uploadBytesResumable(storageRef, file);
+                setOpen(false)
+                uploadTask.on(
+                    "state_changed",
+                    (snapshot) => {
+                        const progress =
+                            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log("Upload is " + progress + "% done");
+                        switch (snapshot.state) {
+                            case "paused":
+                                console.log("Upload is paused");
+                                break;
+                            case "running":
+                                console.log("Upload is running");
+                                break;
+                        }
+                    },
+                    (error) => { },
+                    () => {
+                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                            setMedia(downloadURL);
+                        });
                     }
-                },
-                (error) => { },
-                () => {
-                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                        setMedia(downloadURL);
-                    });
-                }
-            );
+          
+                );
+                
+            }
         };
         
         file && upload()
@@ -109,6 +119,12 @@ const WritePage = ({params}) => {
         }
     };
 
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement> ) => {
+        if (e.target.files) {
+            setFile(e.target.files[0]);
+        }
+    };
+
 
     return (
         <div className={styles.container}>
@@ -132,9 +148,10 @@ const WritePage = ({params}) => {
                         <input
                             type="file"
                             id="image"
-                            onChange={(e) => setFile(e.target.files[0])}
+                            onChange={handleFileChange}
                             style={{ display: "none" }}
                         />
+                        
                         <button className={styles.addButton}>
                             <label htmlFor="image">
                                 <BiPhotoAlbum width={16} height={16} />

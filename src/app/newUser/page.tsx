@@ -5,11 +5,11 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function page() {
    
-    const [date, setDate] = useState();
-    const [email, setEmail] = useState();
-    const [firstname, setFirstname] = useState();
-    const [lastname, setlastName] = useState();
-    const [username, setUsername] = useState();
+    const [date, setDate] = useState<Date | null >(null);
+    const [email, setEmail] = useState<string>();
+    const [firstname, setFirstname] = useState<string>();
+    const [lastname, setlastName] = useState<string>();
+    const [username, setUsername] = useState<string>();
 
     const handleSubmit = async () => {
         console.log("here");
