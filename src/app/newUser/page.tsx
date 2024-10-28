@@ -13,7 +13,6 @@ function page() {
 
     const handleSubmit = async () => {
         console.log("here");
-        
         await fetch(`/api/user/${email}`, {
             method: "POST",
             body: JSON.stringify({
@@ -24,13 +23,6 @@ function page() {
         console.log(date, firstname, lastname, username , email);
     }
 
-
-    
-
-    
-    
-
-    
 
   return (
       <section className="bg-white">

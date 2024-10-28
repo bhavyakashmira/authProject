@@ -1,13 +1,21 @@
 "use client"
 import { signIn, useSession } from 'next-auth/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { FaGithub, FaGoogle, FaUser } from "react-icons/fa";
 import { MdDriveFileRenameOutline, MdOutlineMail, MdPassword } from 'react-icons/md';
 import Link from 'next/link';
+
+
+
+
+
 function page() {
 
     const router = useRouter();
+
+    const [password, setpassword] = useState();
+    const [email, setEmail] = useState();
 
     const { data, status } = useSession();
     console.log(data, status);
@@ -17,6 +25,14 @@ function page() {
     if (status === 'authenticated') {
         router.push("/")
 
+    }
+
+
+    const handleSubmit = async () => {
+        const res = await fetch('/api/user', {
+            method: "POST",
+            body: JSON.stringify({email , password})
+        })
     }
 
     return (
@@ -73,6 +89,8 @@ function page() {
                                         <label
                                             htmlFor="firstName"
                                             className="inline-block mb-1 font-medium"
+
+                                        
                                         >
                                             UserName
                                         </label>
@@ -83,6 +101,8 @@ function page() {
                                             className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                                             id="firstName"
                                             name="firstName"
+
+                                            onChange={(e)=>setEmail(e.target.value)}
                                         />
                                     </div>
 
@@ -100,6 +120,7 @@ function page() {
                                             className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                                             id="email"
                                             name="email"
+                                            onChange={(e)=>setpassword(e.target.value)}
                                         />
                                     </div>
                                     <div className="mt-4 mb-2 sm:mb-4">

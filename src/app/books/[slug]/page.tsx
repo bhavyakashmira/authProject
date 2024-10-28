@@ -99,8 +99,46 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
                 <div className='grid grid-cols-2 p-5 items-center mr-10 ml-10  ' >
                 <div>
                     <Image className=' shadow-xl' src={data.img} width={300} height={500} alt="" />
-                </div>
+                    </div>
                     <div>
+                        <div className=" flow-root ">
+                            <dl className="my-3 divide-y divide-gray-100 text-sm">
+                                <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">Book Name</dt>
+                                    <dd className="text-gray-700 sm:col-span-2">{data.title}</dd>
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">Author</dt>
+                                    <dd className="text-gray-700 sm:col-span-2">{data.user?.name}</dd>
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">Occupation</dt>
+                                    <dd className="text-gray-700 sm:col-span-2">Guitarist</dd>
+                                </div>
+
+                               
+
+                                <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">Book Description</dt>
+                                    <dd className="text-gray-700 sm:col-span-2">
+                                       {data.desc}
+                                    </dd>
+                                </div>
+                                <div className="grid grid-cols-2 m-2 items-center ">
+                                    <button className='bg-black p-2 text-white rounded-xl' >start reading</button>
+                                    <div className='flex' >
+                                        <Bookmark />
+                                        <Heart />
+                                        <Eye />
+                                    </div>
+                                    
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                    {/* <div>
                         <p className='text-xl font-bold' >{data.title}</p>
                         <h1> by <span className='text-xl font-bold' >{data.user?.name}</span> </h1>
                         <p>{data.desc}</p>
@@ -111,7 +149,7 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
                             <Eye />
                         </div>
                         
-                    </div>
+                    </div> */}
 
                     <div>
                         {data?.user?.email === session.data?.user?.email  &&
