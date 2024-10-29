@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import AuthProviders from "@/providers/AuthProviders";
 import Sidebar from "@/subcomponents/Sidebar";
-
+import { AppWrapper } from "@/context";
 
 
 export const metadata: Metadata = {
@@ -20,14 +20,16 @@ export default function RootLayout({
     <html lang="en">
       <body
       >
+        <AuthProviders>
+          <AppWrapper>
         <div className="grid  md:grid-cols-12" >
           <div><Sidebar/></div>
           <div className=" md:col-span-11" >
-        <AuthProviders>
-          {children}
-            </AuthProviders>
+                {children}
             </div>
-       </div>
+          </div>
+          </AppWrapper>
+        </AuthProviders>
       </body>
     </html>
   );

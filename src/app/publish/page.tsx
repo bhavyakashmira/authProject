@@ -6,11 +6,15 @@ import {
     uploadBytesResumable,
     getDownloadURL,
 } from "firebase/storage";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/ReactToastify.css';
+import { useRouter } from 'next/navigation';
 import { app } from "@/utils/firebase";
 import { useSession, SessionContextValue } from 'next-auth/react';
 import Navbar from '@/subcomponents/Navbar';
 
 function Page() {
+    const router = useRouter();
     const session: SessionContextValue = useSession();
 
     const [desc, setDesc] = useState<string>("");
@@ -61,7 +65,8 @@ function Page() {
         upload();
     }, [file]);
 
-    console.log(file);
+    const notify = () => toast("Chapter is added");
+
     
 
     const slugify = (str: string) =>
@@ -73,11 +78,13 @@ function Page() {
             .replace(/^-+|-+$/g, "");
 
     const handleBookSubmit = async () => {
+
+        const slug = slugify(title);
         await fetch("/api/books", {
             method: "POST",
             body: JSON.stringify({
                 title,
-                slug: slugify(title || ''),
+                slug: slug,
                 image: media,
                 desc,
                 catSlug,
@@ -85,10 +92,9 @@ function Page() {
             }),
             headers: { "Content-Type": "application/json" }
         });
-
-        setTitle("");
-        setDesc("");
-        setCat("");
+        
+        notify();
+        router.push(`/books/${slug}`);
     };
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -100,6 +106,8 @@ function Page() {
     return (
         <div>
             <Navbar />
+            <ToastContainer/>
+           
             <div className="p-8 bg-gray-50 rounded-lg shadow-lg max-w-md mx-auto">
                 <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-700 mb-2">Upload Image</label>

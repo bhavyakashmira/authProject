@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/ReactToastify.css';
 import styles from "./writePage.module.css";
 import React , { useEffect, useState , ChangeEvent} from "react";
-import "react-quill/dist/quill.bubble.css";
+import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import {
@@ -35,6 +37,7 @@ const WritePage = ({params}:WriteProps) => {
     const [title, setTitle] = useState<string>("");
     const [catSlug, setCat] = useState<string>("");
     const [value, setValue] = useState("");
+    const notify = () => toast("Chapter is added");
 
 
 
@@ -97,10 +100,6 @@ const WritePage = ({params}:WriteProps) => {
     
 
     const handleSubmit = async () => {
-      
-
-          
-
       const res = await fetch(`/api/books/${slug}`, {
             method: "POST",
             body: JSON.stringify({
@@ -117,6 +116,10 @@ const WritePage = ({params}:WriteProps) => {
             const data = await res.json();
             router.push(`/posts/${data.slug}`);
         }
+        setTitle("");
+        setValue("");
+        notify();
+   
     };
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement> ) => {
@@ -127,17 +130,16 @@ const WritePage = ({params}:WriteProps) => {
 
 
     return (
+        <div>
+            <ToastContainer/>
         <div className={styles.container}>
+
             <input
                 type="text"
                 placeholder="Title"
                 className={styles.input}
                 onChange={(e) => setTitle(e.target.value)}
             />
-
-       
- 
-
 
             <div className={styles.editor}>
                 <button className={styles.button} onClick={() => setOpen(!open)}>
@@ -166,10 +168,11 @@ const WritePage = ({params}:WriteProps) => {
                             <VideoIcon width={16} height={16} />  
                         </button>
                     </div>
-                )}
+                    )}
+                    
                 <ReactQuill
-                    className={styles.textArea}
-                    theme="bubble"
+                   className={styles.textArea}
+                    theme="snow"
                     value={value}
                     onChange={setValue}
                     placeholder="Tell your story..."
@@ -178,7 +181,9 @@ const WritePage = ({params}:WriteProps) => {
 
             <button className={styles.publish} onClick={handleSubmit}>
                 Publish rn
-            </button>
+                </button>
+                
+            </div>
         </div>
     );
 };

@@ -37,8 +37,7 @@ export const POST = async (req: Request)=>{
     try {
 
         const body = await req.json();
-        if (!body.title || !body.catslug) return NextResponse.json({ "message": "something wrong" })
-        
+        if (!body.title ) return NextResponse.json({ "message": "something wrong" })
         
         const book = await prisma.book.create({
             data: {
@@ -46,7 +45,7 @@ export const POST = async (req: Request)=>{
                 title: body.title,
                 userEmail: body.userEmail,
                 desc : body.desc,
-                catslug: body.catslug,
+                catslug: body.catSlug,
                 img : body.image
             }
         });

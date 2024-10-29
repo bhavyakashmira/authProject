@@ -8,6 +8,7 @@ import { CategroyBooks } from "@/components/CategoryBooks";
 import { Feature } from "@/components/Features";
 
 
+
 interface HomeProps {
   searchParams: {
     page?: string,
