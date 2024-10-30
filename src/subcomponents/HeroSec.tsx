@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
+import { useRouter } from 'next/navigation'
 
 function HeroSec() {
+  const router = useRouter();
   return (
       <div>
 
@@ -9,9 +11,7 @@ function HeroSec() {
         <div className="flex flex-col items-center justify-between w-full mb-10 lg:flex-row">
           <div className="mb-16 lg:mb-0 lg:max-w-lg lg:pr-5">
             <div className="max-w-xl mb-6">
-              <div  >
-                <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider uppercase bg-teal-accent-400 bg-black text-white rounded-full">Brand new</p>
-              </div>
+        
               <h2 className="font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none max-w-lg mb-6">
                 Turn from 
                 <br className="hidden md:block" />
@@ -21,9 +21,9 @@ function HeroSec() {
               <p className="text-gray-700 text-base md:text-lg">Our platform is a haven for writers, creators, and dreamers. Whether you're an aspiring novelist or an established author, this is where your stories come to life. Share your work with a community of passionate readers, connect with like-minded writers, and grow your audience. With easy-to-use tools, you can publish chapters, receive feedback, and build your own library of creative works. Join us and turn your ideas into stories that inspire, captivate, and resonate with the world.</p>
             </div>
             <div className="flex items-center space-x-3">
-              <a href="/" className="w-32 transition duration-300 hover:shadow-lg">
-                <img src="https://kitwind.io/assets/kometa/app-store.png" className="object-cover object-top w-full h-auto mx-auto" alt="" />
-              </a>
+              <button className='bg-black p-2 text-white rounded-xl' onClick={()=>router.push("/books")}  >
+                Read Now
+            </button>
            
             </div>
           </div>
@@ -36,15 +36,7 @@ function HeroSec() {
             </div>
           </div>
         </div>
-        <a
-          href="/"
-          aria-label="Scroll down"
-          className="flex items-center justify-center w-10 h-10 mx-auto text-gray-600 hover:text-deep-purple-accent-400 hover:border-deep-purple-accent-400 duration-300 transform border border-gray-400 rounded-full hover:shadow hover:scale-110"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-            <path d="M10.293,3.293,6,7.586,1.707,3.293A1,1,0,0,0,.293,4.707l5,5a1,1,0,0,0,1.414,0l5-5a1,1,0,1,0-1.414-1.414Z" />
-          </svg>
-        </a>
+ 
       </div>
 
     </div>

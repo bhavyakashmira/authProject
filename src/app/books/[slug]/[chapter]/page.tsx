@@ -32,7 +32,6 @@ function page({ params }:ChapterProp) {
   const [Chapter, setChapter] = useState<Chapter>();
   const [error, setError] = useState<string | null>(null);
 
-  console.log(Chapter);
   
 
   useEffect(() => {
@@ -63,27 +62,38 @@ function page({ params }:ChapterProp) {
     <div>
       {Chapter ?
         <>
-          <h1 className='text-3xl  font-bold flex justify-center p-1'>{Chapter?.title}</h1>
-          <div className='grid grid-cols-3' >
-            <div>
-          
-            </div>
-            <div>
         
-          <h2>{formatTimestamp(Chapter.createdAt)}</h2>
-          <p>{Chapter.description}</p>
-          <div className='p-10'  dangerouslySetInnerHTML={{ __html: Chapter.story }} />
-          {Chapter.img && <Image width={100} height={100} src={Chapter.img} alt="" />
-            }
-            
-            </div>
-            <div>
-
+          <div className="relative overflow-hidden">
+            <div className="absolute inset-0  bg-opacity-50 z-10"></div>
+            <div className="relative z-20 py-16 px-4 sm:px-6 lg:px-8">
+              <h1 className="text-3xl font-bold text-center text-black">{Chapter?.title}</h1>
+              <div className="mt-8">
+                {Chapter.img && (
+                  <img
+                    src={Chapter.img}
+                    alt=""
+                    className="w-full h-64 object-cover rounded-lg shadow-lg"
+                  />
+                )}
+                <div className="mt-4">
+                  <h2 className="font-bold text-black">{formatTimestamp(Chapter.createdAt)}</h2>
+                  <p className="">{Chapter.description}</p>
+                  <div className="prose prose-invert text-black mt-8" dangerouslySetInnerHTML={{ __html: Chapter.story }} />
+                </div>
+              </div>
             </div>
           </div>
-          <Comments chapterSlug={Chapter.slug}  />
+          <Comments chapterSlug={Chapter.slug} />
         </> :
-        <div>NO chapter found </div>
+        <div className="flex items-center justify-center h-screen">
+          <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
+            <h2 className="text-2xl font-bold text-white mb-4">No Chapter Found</h2>
+            <p className="text-gray-400 mb-6">It seems there is no chapter available at the moment.</p>
+            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+              Go Back
+            </button>
+          </div>
+        </div>
     }
           
    

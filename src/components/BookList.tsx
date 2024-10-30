@@ -87,7 +87,7 @@ const BookList: React.FC<BookListProps> = ({ page=2  , cat=""  , bookcount }) =>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {data?.map((book) => (
-          <div key={book._id} className="border border-gray-200 rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+          <div key={book._id} className="">
             <BookCard dat={book} />
           </div>
         ))}

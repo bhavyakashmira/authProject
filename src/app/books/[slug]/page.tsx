@@ -119,11 +119,6 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
                                     <dd className="text-gray-700 sm:col-span-2">{data.user?.name}</dd>
                                 </div>
 
-                               
-                              
-
-                               
-
                                 <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
                                     <dt className="font-medium text-gray-900">Book Description</dt>
                                     <dd className="text-gray-700 sm:col-span-2">
@@ -175,7 +170,15 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
                 </div>
 
                
-            </> : <p>NO SUCH BOOK.</p>}
+            </> : <div className="flex items-center justify-center h-screen">
+                <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
+                    <h2 className="text-2xl font-bold text-white mb-4">No Book Found</h2>
+                    <p className="text-gray-400 mb-6">It seems there is no Book available at the moment.</p>
+                    <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                        Go Back
+                    </button>
+                </div>
+            </div>}
                 
          
             

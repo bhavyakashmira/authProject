@@ -34,7 +34,7 @@ const CategoryList = () => {
     if (error) return <p>{error}</p>;
 
     return (
-        <div>
+        <div className="" >
             {data.map((dat) => (
                 <div key={dat._id} className='gap-10 bg-white text-black flex justify-center' >
                     <h1>{dat.slug}</h1>

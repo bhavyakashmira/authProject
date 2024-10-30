@@ -27,7 +27,8 @@ export default function RootLayout({
           <div className=" md:col-span-11" >
                 {children}
             </div>
-          </div>
+            </div>
+            
           </AppWrapper>
         </AuthProviders>
       </body>

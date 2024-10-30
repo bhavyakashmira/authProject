@@ -99,10 +99,15 @@ function Page({ params }: PageProps) {
               else if (profile) setProfileImg(downloadURL);
               setIsLoading(false);
             });
+           
           }
         );
+           
+       
+
+
       } catch (error) {
-        console.error("Error during file upload:", error);
+       
         setError("File upload failed. Please try again.");
         setIsLoading(false);
       }
@@ -111,24 +116,33 @@ function Page({ params }: PageProps) {
     upload();
   }, [file]);
 
-  const handleSubmit = async () => {
-    try {
-      setIsLoading(true);
-      const res = await fetch(`/api/user/${user?.email}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ coverImg, profileImg }),
-      });
-      if (!res.ok) throw new Error("Failed to save changes");
-      console.log("Changes saved successfully");
-    } catch (error) {
-      console.error("Error saving changes:", error);
-      setError("Could not save changes. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  useEffect(() => {
+    console.log("here");
+    if (!coverImg && !profileImg) return;
+    const handleSubmit = async () => {
+      try {
+        setIsLoading(true);
+        const res = await fetch(`/api/user/${user?.email}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ coverImg, profileImg }),
+        });
+        if (!res.ok) throw new Error("Failed to save changes");
+        console.log("Changes saved successfully");
+      } catch (error) {
+        console.error("Error saving changes:", error);
+        setError("Could not save changes. Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
+    handleSubmit();
+
+    
+  }, [coverImg,profileImg])
+
+ 
   const handleCoverChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setCover(true);
@@ -139,11 +153,13 @@ function Page({ params }: PageProps) {
 
   const handleProfileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
+
       setProfile(true);
       setCover(false);
       setFile(e.target.files[0]);
     }
   };
+
 
   return (
     <div className='flex-[4_4_0] border-r border-gray-700 min-h-screen'>
@@ -193,7 +209,6 @@ function Page({ params }: PageProps) {
                       <Edit2
                         className='w-4 h-4 text-white'
                         onClick={() => {
-                         
                             profileImgRef.current?.click();
                        
                         }}

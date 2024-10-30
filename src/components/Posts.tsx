@@ -76,40 +76,40 @@ type Books = {
 
 function Posts({ books }: { books: Books[] }) {
     return (
-        <div>
-            <h1 className='text-3xl font-bold'>BOOKS</h1>
-            <div className='grid grid-cols-4'>
-                {books.map((data, ind) => (
+        <div className="p-6 md:p-8">
+            <h1 className="text-4xl font-extrabold text-gray-900 text-center mb-6">BOOKS</h1>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {books.map((data) => (
                     <Link
                         href={`/books/${data.slug}`}
                         key={data._id}
-                        className="flex p-4 bg-pink-300 transition hover:shadow-xl"
+                        className="flex flex-col bg-white rounded-lg shadow-lg hover:shadow-xl transition transform hover:scale-105"
                     >
-                        <div className="hidden sm:block sm:basis-56">
+                       
+                        <div className="relative overflow-hidden rounded-t-lg">
                             <Image
-                                alt=""
+                                alt={data.title}
                                 src={data.img}
-                                width={100}
-                                height={100}
-                                className="aspect-square h-full w-full object-cover"
+                                width={250}
+                                height={250}
+                                className="w-full h-56 object-cover transition-transform duration-300 ease-in-out hover:scale-110"
                             />
                         </div>
 
-                        <div className="flex flex-1 flex-col justify-between">
-                            <div className="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
-                                <h3 className="font-bold uppercase text-gray-900">
-                                    {data.title}
-                                </h3>
+                        {/* Book Info */}
+                        <div className="flex flex-col justify-between flex-1 p-4">
+                            <h3 className="text-lg font-semibold text-gray-800 uppercase mb-2 line-clamp-2">
+                                {data.title}
+                            </h3>
+                            <p className="text-sm text-gray-600 line-clamp-3 mb-4">
+                                {data.desc}
+                            </p>
 
-                                <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-700">
-                                    {data.desc}
-                                </p>
-                            </div>
-
-                            <div className="sm:flex sm:items-end sm:justify-end">
+                            {/* Read Book Button */}
+                            <div className="mt-auto">
                                 <a
                                     href="#"
-                                    className="block bg-yellow-300 px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-yellow-400"
+                                    className="block bg-yellow-300 text-center py-2 px-3 text-sm font-bold text-gray-900 rounded transition duration-200 hover:bg-yellow-400"
                                 >
                                     Read Book
                                 </a>
@@ -119,6 +119,7 @@ function Posts({ books }: { books: Books[] }) {
                 ))}
             </div>
         </div>
+
     );
 }
 

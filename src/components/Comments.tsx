@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import useSWR from 'swr'
 import Image from 'next/image'
 import { Delete, DeleteIcon, Trash } from 'lucide-react'
+import formatTimestamp from '@/helper-function/dateformater'
 
 const fetcher = async (url:string) => {
     const res = await fetch(url)
@@ -78,56 +79,63 @@ function Comments({ chapterSlug }:commentsProps) {
    
   
   return (
-      <div>
-          <div className="">
+      <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="mb-4">
               {status === "authenticated" ? (
-                  <div className="bg-gray-400 p-10 items-center flex gap-2">
+                  <div className="flex flex-col md:flex-row items-start gap-2">
                       <textarea
-                          placeholder="write a comment..."
+                          placeholder="Write a comment..."
                           onChange={(e) => setDesc(e.target.value)}
+                          className="flex-1 border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-red-500"
                       />
-                      <button className="bg-red-700 rounded-xl p-2" onClick={handleSubmit}>
+                      <button
+                          className="bg-red-700 text-white rounded-lg px-4 py-2 hover:bg-red-600 transition"
+                          onClick={handleSubmit}
+                      >
                           Send
                       </button>
                   </div>
               ) : (
-                  <Link href="/login" className="">
+                  <Link href="/login" className="text-red-700 font-semibold">
                       Login to write a comment
                   </Link>
               )}
+          </div>
 
-              <h1 className="text-xl font-bold p-1">Comments</h1>
-              <div>
-                  {isLoading
-                      ? "loading"
-                      : data?.map((item) => (
-                          <div key={item.id}>
-                              <div className="flex p-2 m-2">
-                                  {item?.user?.image && (
-                                      <Image
-                                          width={50}
-                                          height={50}
-                                          alt="user"
-                                          className="rounded-full"
-                                          src={item.user.image}
-                                      />
-                                  )}
-                                  <div>
-                                      <div className="flex">
-                                          <h1 className="font-bold">{item.user.name}</h1>
-                                          <h1>{item.createdAt}</h1>
-                                      </div>
-                                      <p>{item.desc}</p>
-                                  </div>
-                                 
-                                 
-                                  <Trash size={20} onClick={() => deleteComment(item.id)} />
+          <h1 className="text-xl font-bold mb-2">Comments</h1>
+          <div>
+              {isLoading ? (
+                  <p className="text-gray-500">Loading comments...</p>
+              ) : (
+                  data?.map((item) => (
+                      <div key={item.id} className="flex items-start p-4 border-b border-gray-200">
+                          {item?.user?.image && (
+                              <Image
+                                  width={50}
+                                  height={50}
+                                  alt="User Avatar"
+                                  className="rounded-full mr-3"
+                                  src={item.user.image}
+                              />
+                          )}
+                          <div className="flex-1">
+                              <div className="flex items-center justify-between">
+                                  <h1 className="font-bold text-gray-800">{item.user.name}</h1>
+                                  <span className="text-gray-500 text-sm">{formatTimestamp(item.createdAt)}</span>
                               </div>
+                              <p className="mt-1 text-gray-700">{item.desc}</p>
                           </div>
-                      ))}
-              </div>
+                          <Trash
+                              size={20}
+                              className="text-red-500 cursor-pointer hover:opacity-75 ml-4"
+                              onClick={() => deleteComment(item.id)}
+                          />
+                      </div>
+                  ))
+              )}
           </div>
       </div>
+
       
     
   )
