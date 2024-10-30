@@ -6,6 +6,7 @@ import useSWR from 'swr'
 import Image from 'next/image'
 import { Delete, DeleteIcon, Trash } from 'lucide-react'
 import formatTimestamp from '@/helper-function/dateformater'
+import { useAppContext } from '@/context'
 
 const fetcher = async (url:string) => {
     const res = await fetch(url)
@@ -29,6 +30,7 @@ interface Comment {
     user: {
         name: string;
         image: string;
+        email: string;
     };
 }
 
@@ -36,7 +38,7 @@ interface Comment {
 
 function Comments({ chapterSlug }:commentsProps) {
     const { status } = useSession();
-    
+    const { email } = useAppContext();
     const { data, mutate, isLoading } = useSWR<Comment[]>(`/api/comments?chapterSlug=${chapterSlug}`, fetcher)
     const [desc, setDesc] = useState("");
 
@@ -74,12 +76,12 @@ function Comments({ chapterSlug }:commentsProps) {
         }
     }
 
-   
+    
        
    
   
   return (
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="bg-gray-300 rounded-lg shadow-md p-6">
           <div className="mb-4">
               {status === "authenticated" ? (
                   <div className="flex flex-col md:flex-row items-start gap-2">
@@ -125,11 +127,13 @@ function Comments({ chapterSlug }:commentsProps) {
                               </div>
                               <p className="mt-1 text-gray-700">{item.desc}</p>
                           </div>
-                          <Trash
-                              size={20}
-                              className="text-red-500 cursor-pointer hover:opacity-75 ml-4"
-                              onClick={() => deleteComment(item.id)}
-                          />
+                          { (email===item.user.email) && 
+                              (<Trash
+                                  size={20}
+                                  className="text-red-500 cursor-pointer hover:opacity-75 ml-4"
+                                  onClick={() => deleteComment(item.id)}
+                              />)
+                          }
                       </div>
                   ))
               )}
