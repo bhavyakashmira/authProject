@@ -14,8 +14,8 @@ function page() {
 
     const router = useRouter();
 
-    const [password, setpassword] = useState();
-    const [email, setEmail] = useState();
+    const [password, setpassword] = useState<string>();
+    const [email, setEmail] = useState<string>();
 
     const { data, status } = useSession();
     console.log(data, status);
@@ -102,7 +102,7 @@ function page() {
                                             id="firstName"
                                             name="firstName"
 
-                                            onChange={(e)=>setEmail(e.target.value)}
+                                            onChange={(e)=>setEmail(e.target.value)} 
                                         />
                                     </div>
 

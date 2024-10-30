@@ -1,3 +1,4 @@
+import formatTimestamp from '@/helper-function/dateformater';
 import { Trash2Icon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React from 'react'
@@ -10,11 +11,11 @@ interface ChapterContProps{
 }
 
 type data = {
-    id: String ,
-    title: String, 
-    description: String, 
-    createdAt: String, 
-    slug :String
+    id: string ,
+    title: string, 
+    description: string, 
+    createdAt: string, 
+    slug :string
 }
 
 function ChapterCont({ data, slug , email , userEmail }:ChapterContProps) {
@@ -47,41 +48,31 @@ const handleDelete = async (id: String) => {
             <div className=" border-t border-b divide-y  ">
                 <div className="grid py-3 sm:grid-cols-4 items-center">
                     <div className="mb-4 sm:mb-0">
-                        <div className="space-y-1 text-xs font-semibold tracking-wide uppercase">
-                            <a
-                                href="/"
-                                className="transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-                                aria-label="Category"
-                            >
-                                Books
-                            </a>
-                            <p className="text-gray-600"></p>
-                    </div>
-                    <h1>{data.createdAt}</h1>
+                      
+                    <h1>{formatTimestamp(data.createdAt)}</h1>
                     </div>
                     <div className="sm:col-span-3 lg:col-span-2">
                         <div className="mb-3">
-                            <a
-                                href="/"
+                            <div
+                               
                                 aria-label="Article"
                                 className="inline-block text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
                             >
                                 <p className="text-3xl font-extrabold leading-none sm:text-4xl xl:text-4xl">
                                   {data.title}
                                 </p>
-                            </a>
+                            </div>
                         </div>
                         <p className="text-gray-700">
                            {data.description}
                         </p>
                     </div>
-                <div>
+                <div className='flex items-center' >
                     
                     <button className='bg-black text-white p-2' onClick={() => router.push(`/books/${slug}/${data.slug}`)} >Read Now </button>
 
                     {(email === userEmail) &&
                         (<>
-
                         <Trash2Icon size={30} onClick={() => handleDelete(data.id)} />
                     
                         

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Comments from '@/components/Comments';
+import formatTimestamp from '@/helper-function/dateformater';
 
 interface ChapterProp {
   params: {
@@ -31,6 +32,8 @@ function page({ params }:ChapterProp) {
   const [Chapter, setChapter] = useState<Chapter>();
   const [error, setError] = useState<string | null>(null);
 
+  console.log(Chapter);
+  
 
   useEffect(() => {
     const getData = async () => {
@@ -60,16 +63,24 @@ function page({ params }:ChapterProp) {
     <div>
       {Chapter ?
         <>
-          
           <h1 className='text-3xl  font-bold flex justify-center p-1'>{Chapter?.title}</h1>
-          <h2>{Chapter.views}</h2>
-          <h2>{Chapter.createdAt}</h2>
+          <div className='grid grid-cols-3' >
+            <div>
+          
+            </div>
+            <div>
+        
+          <h2>{formatTimestamp(Chapter.createdAt)}</h2>
           <p>{Chapter.description}</p>
-          <div dangerouslySetInnerHTML={{ __html: Chapter.story }} />
+          <div className='p-10'  dangerouslySetInnerHTML={{ __html: Chapter.story }} />
           {Chapter.img && <Image width={100} height={100} src={Chapter.img} alt="" />
-          }
-         
-  
+            }
+            
+            </div>
+            <div>
+
+            </div>
+          </div>
           <Comments chapterSlug={Chapter.slug}  />
         </> :
         <div>NO chapter found </div>

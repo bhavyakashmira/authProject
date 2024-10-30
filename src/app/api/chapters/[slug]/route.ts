@@ -15,7 +15,8 @@ export const GET = async (req: NextRequest , {params}:ChapterProps) => {
         const { slug } = params;
    
         const chapter = await prisma.chapter.findUnique({
-            where:{slug}
+            where: { slug },
+        
         })
 
         return new NextResponse(JSON.stringify(chapter))

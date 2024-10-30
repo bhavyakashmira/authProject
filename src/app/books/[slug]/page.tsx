@@ -5,6 +5,8 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import ChapterCont from '@/subcomponents/ChapterCont';
 import { useSession } from 'next-auth/react';
+import { useAppContext } from '@/context';
+import formatTimestamp from '@/helper-function/dateformater';
 
 type Book = {
     id: string;
@@ -12,6 +14,7 @@ type Book = {
     title: string;
     img: string;
     desc: string;
+    createdAt: string;
     user?: {
         email: string;
         name: string;
@@ -39,8 +42,8 @@ interface BookPageProps {
 }
 
 const Page: React.FC<BookPageProps> = ({ params }) => {
+    const { email } = useAppContext();
 
-    const session = useSession();
     const { slug } = params;
     const router = useRouter();
     const [data, setData] = useState<Book | null>(null);
@@ -92,11 +95,14 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
     if (error) {
         return <div>Error: {error}</div>;
     }
+
+    
+    
     return (
         <div className='' >
             {data ? <> 
                 
-                <div className='grid grid-cols-2 p-5 items-center mr-10 ml-10  ' >
+                <div className='grid md:grid-cols-2 p-5 items-center mr-10 ml-10  ' >
                 <div>
                     <Image className=' shadow-xl' src={data.img} width={300} height={500} alt="" />
                     </div>
@@ -113,10 +119,8 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
                                     <dd className="text-gray-700 sm:col-span-2">{data.user?.name}</dd>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-                                    <dt className="font-medium text-gray-900">Occupation</dt>
-                                    <dd className="text-gray-700 sm:col-span-2">Guitarist</dd>
-                                </div>
+                               
+                              
 
                                
 
@@ -126,8 +130,14 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
                                        {data.desc}
                                     </dd>
                                 </div>
+
+                                <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                                    <dt className="font-medium text-gray-900">created At</dt>
+                                    <dd className="text-gray-700 sm:col-span-2">{
+                                        formatTimestamp(data.createdAt) }</dd>
+                                </div>
                                 <div className="grid grid-cols-2 m-2 items-center ">
-                                    <button className='bg-black p-2 text-white rounded-xl' >start reading</button>
+                               
                                     <div className='flex' >
                                         <Bookmark />
                                         <Heart />
@@ -138,41 +148,32 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
                             </dl>
                         </div>
                     </div>
-                    {/* <div>
-                        <p className='text-xl font-bold' >{data.title}</p>
-                        <h1> by <span className='text-xl font-bold' >{data.user?.name}</span> </h1>
-                        <p>{data.desc}</p>
-                        <div className='flex items-center gap-2' > 
-                            <button className='bg-black p-2 m-2 text-white rounded-xl' >start reading</button>
-                            <Bookmark />
-                            <Heart />
-                            <Eye />
-                        </div>
-                        
-                    </div> */}
+              
 
                     <div>
-                        {data?.user?.email === session.data?.user?.email  &&
+                        {data?.user?.email === email  &&
                             (
-                            <>
+                            <div className='flex' >
                                 <button className='bg-black text-white p-2'
                                     onClick={() => router.push(`/write/${slug}`)}
                                 >add chapter</button>
                                 <Trash2Icon size={30}  onClick={()=>handleDelete(data.id)} />
                             
-                            </> 
+                            </div> 
                             )}
                     </div>
                 </div>
                 <div className='p-2' >
                     <h1 className='text-3xl font-bold' >chapters {data.chapters.length} </h1>
                     {data.chapters.map((dat, ind) =>
-                        <ChapterCont data={dat} slug={slug} userEmail ={data?.user?.email || ''}  email={session.data?.user?.email || ''}  />
+                        <ChapterCont data={dat} slug={slug} userEmail ={data?.user?.email || ''}  email={email || ''}  />
                     )}
                 </div>
 
-               
-                
+                <div className='min-h-[100px]' >
+                    
+                </div>
+
                
             </> : <p>NO SUCH BOOK.</p>}
                 

@@ -51,8 +51,8 @@ function Page({ params }: PageProps) {
   const [profile, setProfile] = useState(false);
   const [file, setFile] = useState<File | null>(null);
 
-  const coverImgRef = useRef(null);
-  const profileImgRef = useRef(null);
+  const coverImgRef = useRef<HTMLInputElement>(null);
+  const profileImgRef = useRef<HTMLInputElement>(null);
 
 
 
@@ -163,9 +163,8 @@ function Page({ params }: PageProps) {
             <div className='relative group/cover'>
               <img src={coverImg || user.coverImg || "/cover.png"} className='h-52 w-full object-cover' alt='cover image' />
               {email === user.email && (
-
                 <div className='absolute top-2 right-2 rounded-full p-2 bg-gray-800 bg-opacity-75 cursor-pointer opacity-0 group-hover/cover:opacity-100 transition duration-200'
-                  onClick={() => coverImgRef.current.click()}
+                  onClick={() => coverImgRef.current?.click()}
                 >
                   <Edit2  />
           
@@ -193,7 +192,11 @@ function Page({ params }: PageProps) {
                     <div className='absolute top-5 right-3 p-1 bg-primary rounded-full group-hover/avatar:opacity-100 opacity-0 cursor-pointer'>
                       <Edit2
                         className='w-4 h-4 text-white'
-                        onClick={() => profileImgRef.current.click()}
+                        onClick={() => {
+                         
+                            profileImgRef.current?.click();
+                       
+                        }}
                       />
                     </div>
                   )}
