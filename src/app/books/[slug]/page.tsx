@@ -136,7 +136,6 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
                                     <div className='flex' >
                                         <Bookmark />
                                         <Heart />
-                                        <Eye />
                                     </div>
                                     
                                 </div>

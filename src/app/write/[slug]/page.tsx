@@ -100,14 +100,15 @@ const WritePage = ({params}:WriteProps) => {
     
 
     const handleSubmit = async () => {
-        const slug = Date.now().toString();
+        const chapslug = Date.now().toString();
+
       const res = await fetch(`/api/books/${slug}`, {
             method: "POST",
             body: JSON.stringify({
                 title,
                 story: value,
                 img: media,
-                slug: slug,
+                slug: chapslug,
                 bookslug: slug,
                 catSlug: catSlug || "style", 
             }),

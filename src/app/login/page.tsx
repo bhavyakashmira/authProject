@@ -23,7 +23,7 @@ function page() {
   return (
     <div className="h-screen bg-black relative">
       <img
-        src={"/bglogin.jpeg"}
+        src={"/loginpage.jpeg"}
         className="absolute inset-0 object-cover w-full h-full opacity-70"
         alt="Background"
       />

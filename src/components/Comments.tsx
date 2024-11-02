@@ -6,7 +6,8 @@ import useSWR from 'swr'
 import Image from 'next/image'
 import { Delete, DeleteIcon, Trash } from 'lucide-react'
 import formatTimestamp from '@/helper-function/dateformater'
-import { useAppContext } from '@/context'
+import { useAppContext } from '@/context';
+import { useRouter } from 'next/navigation'
 
 const fetcher = async (url:string) => {
     const res = await fetch(url)
@@ -31,6 +32,7 @@ interface Comment {
         name: string;
         image: string;
         email: string;
+        username: string;
     };
 }
 
@@ -41,6 +43,7 @@ function Comments({ chapterSlug }:commentsProps) {
     const { email } = useAppContext();
     const { data, mutate, isLoading } = useSWR<Comment[]>(`/api/comments?chapterSlug=${chapterSlug}`, fetcher)
     const [desc, setDesc] = useState("");
+    const router = useRouter();
 
 
     const handleSubmit = async () => {
@@ -81,7 +84,7 @@ function Comments({ chapterSlug }:commentsProps) {
    
   
   return (
-      <div className="bg-gray-300 rounded-lg shadow-md p-6">
+      <div className="bg-gray-300 rounded-lg shadow-md p-6 mb-10">
           <div className="mb-4">
               {status === "authenticated" ? (
                   <div className="flex flex-col md:flex-row items-start gap-2">
@@ -122,8 +125,8 @@ function Comments({ chapterSlug }:commentsProps) {
                           )}
                           <div className="flex-1">
                               <div className="flex items-center justify-between">
-                                  <h1 className="font-bold text-gray-800">{item.user.name}</h1>
-                                  <span className="text-gray-500 text-sm">{formatTimestamp(item.createdAt)}</span>
+                                  <Link href={`/user/${item.user.username}`}  className="font-bold text-gray-800">{item.user.username}</Link>
+                                  <span className="text-gray-500 text-sm ">{formatTimestamp(item.createdAt)}</span>
                               </div>
                               <p className="mt-1 text-gray-700">{item.desc}</p>
                           </div>

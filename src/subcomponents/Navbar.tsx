@@ -38,15 +38,14 @@ function Navbar() {
                         className='bg-transparent w-full outline-none pl-2'
                     />
                 </div>
-
                 <div className='flex items-center gap-4'>
                     {user ? (
                         <div className='flex items-center gap-4'>
-                            <PenBoxIcon onClick={() => router.push('/publish')} size={30} className="cursor-pointer" />
+                            <PenBoxIcon onClick={() => router.push('/publish')} size={28} className="cursor-pointer" />
                             {user.image && (
-                                <Image height={50} width={50} className='rounded-full' src={user.image} alt="user" />
+                                <Image height={30} width={30} className='rounded-full' src={user.image} alt="user" />
                             )}
-                            <Bell size={30} className="cursor-pointer" />
+                            <Bell onClick={() => router.push('/notifications')} size={28} className="cursor-pointer" />
                         </div>
                     ) : (
                         <button
@@ -57,6 +56,7 @@ function Navbar() {
                         </button>
                     )}
                 </div>
+
             </div>
         </div>
     );

@@ -22,6 +22,7 @@ function Page() {
     const [media, setMedia] = useState<string>("");
     const [title, setTitle] = useState<string>("");
     const [catSlug, setCat] = useState<string>("");
+    const categories = ["Fiction", "Non-Fiction", "Science", "History", "Biography"];
 
     useEffect(() => {
         if (!file) return;
@@ -106,8 +107,8 @@ function Page() {
     return (
         <div>
             <Navbar />
-            <ToastContainer/>
-           
+            <ToastContainer />
+
             <div className="p-8 bg-gray-50 rounded-lg shadow-lg max-w-md mx-auto">
                 <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-700 mb-2">Upload Image</label>
@@ -115,6 +116,7 @@ function Page() {
                         type="file"
                         className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         onChange={handleFileChange}
+                        required
                     />
                 </div>
 
@@ -125,6 +127,7 @@ function Page() {
                         className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        required
                     />
                 </div>
 
@@ -135,21 +138,29 @@ function Page() {
                         className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         value={desc}
                         onChange={(e) => setDesc(e.target.value)}
+                        required
                     />
                 </div>
 
                 <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                    <input
-                        type="text"
+                    <select
                         className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         value={catSlug}
                         onChange={(e) => setCat(e.target.value)}
-                    />
+                        required
+                    >
+                        <option value="">Select Category</option>
+                        {categories.map((category) => (
+                            <option key={category} value={category}>
+                                {category}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 <button
-                    className="bg-black text-white p-2 rounded-xl"
+                    className="w-full bg-indigo-600 text-white p-2 rounded-xl hover:bg-indigo-700 transition duration-200"
                     onClick={handleBookSubmit}
                 >
                     Create Book
