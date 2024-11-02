@@ -1,7 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+
 import Comments from '@/components/Comments';
 import formatTimestamp from '@/helper-function/dateformater';
 import { useAppContext } from '@/context';
@@ -30,7 +29,7 @@ function page({ params }:ChapterProp) {
   
   const { chapter } = params;
   
-  const router = useRouter();
+
   const [Chapter, setChapter] = useState<Chapter>();
   const [error, setError] = useState<string | null>(null);
   const { email } = useAppContext();
@@ -119,5 +118,6 @@ function page({ params }:ChapterProp) {
     </div>
   )
 }
+
 
 export default page;

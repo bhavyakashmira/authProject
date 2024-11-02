@@ -24,7 +24,8 @@ export async function GET(req: Request) {
                 email
             },
             include: {
-                books: true
+                books: true, 
+                
             }
         })
 

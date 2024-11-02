@@ -1,5 +1,5 @@
 "use client";
-import { ArrowBigLeft, Edit2 } from 'lucide-react';
+import { ArrowBigLeft, Edit2, UserCheck, UserPlus } from 'lucide-react';
 import React, { useState, useEffect,useRef , ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { Footer } from '@/components/Footer';
@@ -63,14 +63,16 @@ function Page({ params }: PageProps) {
       try {
         const res = await fetch(`/api/user/${slug}`);
         if (!res.ok) throw new Error("Failed to fetch user data");
-        const result = await res.json();
-        setUser(result.user);
+        const result = await res.json(); 
+        setUser(result);
       } catch (error) {
         setError((error as Error).message);
       }
     };
     getData();
   }, [slug]);
+
+  
 
   useEffect(() => {
     if (!file) return;
@@ -117,7 +119,7 @@ function Page({ params }: PageProps) {
   }, [file]);
 
   useEffect(() => {
-    console.log("here");
+   
     if (!coverImg && !profileImg) return;
     const handleSubmit = async () => {
       try {
@@ -219,6 +221,8 @@ function Page({ params }: PageProps) {
               </div>
             </div>
 
+       
+
     
 
             {error && <p className="text-red-500 mt-4">{error}</p>}
@@ -226,7 +230,12 @@ function Page({ params }: PageProps) {
             <div className='flex flex-col gap-4 mt-14 px-4'>
               <div className='flex flex-col'>
                 <span className='font-bold text-lg'>{user.name}</span>
-                <span className='text-sm text-slate-500'>{user.username}</span>
+                <div className='flex justify-between items-center'>
+                  <span className='text-sm text-slate-500'>{user.username}</span>
+                  <UserPlus color='#000' />
+                  <UserCheck color='#0000FF' />
+                </div>
+               
                 <span className='text-sm my-1'>{user.bio}</span>
               </div>
             </div>

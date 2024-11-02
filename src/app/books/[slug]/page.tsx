@@ -20,8 +20,17 @@ type Book = {
         name: string;
         image: string;
     };
+    bookmarks: BookMark[];
+    likedBooks: LikedBook[];
     chapters: Chapter[];
 };
+type BookMark = {
+    userId: string;
+}
+
+type LikedBook = {
+    userId: string;
+}
 
 type Chapter = {
     bookSlug: string,
@@ -43,7 +52,7 @@ interface BookPageProps {
 
 const Page: React.FC<BookPageProps> = ({ params }) => {
     const { email } = useAppContext();
-
+    const { userId } = useAppContext();
     const { slug } = params;
     const router = useRouter();
     const [data, setData] = useState<Book | null>(null);
@@ -67,12 +76,57 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
 
         getData();
     }, [slug]); 
+      
+    
+    
 
-
-    const handleDelete = async (id: String) => {
+    const handleLike = async (id: String) => {
+        console.log(id , userId);
         
         try {
+            const res = await fetch("/api/book/like", {
+                method: "POST",
+                body: JSON.stringify({bookId:id , userId})
+            })
 
+            if (!res.ok) {
+                throw new Error('Failed to like book');
+            }
+
+            
+        } catch (error: any) {
+            
+            console.log(error);
+            
+            
+        }
+
+    }
+    const handleBookmark = async (id: String) => {
+        console.log(id, userId);
+
+        try {
+            const res = await fetch("/api/book/bookmark", {
+                method: "POST",
+                body: JSON.stringify({ bookId: id, userId })
+            })
+
+            if (!res.ok) {
+                throw new Error('Failed to like book');
+            }
+
+
+        } catch (error: any) {
+
+            console.log(error);
+
+
+        }
+
+    }
+
+    const handleDelete = async (id: String) => {
+        try {
             const res = await fetch("/api/books", {
                 method: "DELETE",
                 headers: {
@@ -82,7 +136,7 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
             });
 
             if (!res.ok) {
-                throw new Error('Failed to delete comment');
+                throw new Error('Failed to delete book');
             }
 
 
@@ -92,10 +146,13 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
             
         }
     }
+
+
     if (error) {
         return <div>Error: {error}</div>;
     }
 
+    
     
     
     return (
@@ -133,10 +190,33 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
                                 </div>
                                 <div className="grid grid-cols-2 m-2 items-center ">
                                
-                                    <div className='flex' >
-                                        <Bookmark />
-                                        <Heart />
+                                    <div className="flex">
+                                      
+                                        {data.bookmarks && data.bookmarks.some((book) => book.userId === userId) ? (
+                                            <>
+                                                <Bookmark fill='brown' onClick={() => handleBookmark(data.id)} />
+                                              
+                                            </>
+                                        ) : (
+                                                <>
+                                                 
+                                                    <Bookmark onClick={() => handleBookmark(data.id)} />
+                                                </>
+                                          
+                                        )}
+
+                                        
+                                        {data.likedBooks && data.likedBooks.some((likedBook) => likedBook.userId === userId) ? (
+                                            <>
+                                                <Heart fill='red' onClick={() => handleLike(data.id)} />
+                             
+                                            </>
+                                        ) : (
+                                            <Heart onClick={() => handleLike(data.id)} />
+                                        )}
                                     </div>
+
+
                                     
                                 </div>
                             </dl>

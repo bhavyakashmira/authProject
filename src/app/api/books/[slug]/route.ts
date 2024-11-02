@@ -18,7 +18,20 @@ export const GET = async (req: Request , {params}:BookPageProps) => {
     try {
         const post = await prisma.book.findUnique({
             where: { slug },
-            include:{user:true , chapters:true}
+            include: {
+                user: true,      
+                chapters: true,  
+                likedBooks: {    
+                    select: {
+                        userId: true
+                    }
+                },
+                bookmarks: {      
+                    select: {
+                        userId: true
+                    }
+                }
+            }
         })
        
         return new NextResponse(JSON.stringify({ post }))

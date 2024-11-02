@@ -12,16 +12,54 @@ interface UserProps {
 export async function GET(req:Request , {params}:UserProps) {
     try {
         const { slug } = params;
+        
         const user = await prisma.user.findUnique({
             where: {
-                username: slug
+                username : slug,
+            },
+            select: {
+                id: true, // Get the userId
+                books: true, // Fetch books associated with this user
+            },
+        });
+
+        if (!user) {
+            throw new Error('User not found');
+        }
+        const userId = user.id;
+
+        const userDetails = await prisma.user.findUnique({
+            where: {
+                id: userId,
             },
             include: {
-                books: true
-            }
-        })
+                books:true,
+                likedBooks: {
+                    select: {
+                        bookId: true,
+                        
+                    },
+                },
+                bookmarks: {
+                    include: {
+                        user: true,
+                    }
+                },
+                followers: {
+                    include: {
+                        follower: true,
+                    },
+                },
+                following: {
+                    include: {
+                        following: true,
+                    },
+                },
+            },
+        });
 
-        return new NextResponse(JSON.stringify({user} ));
+
+        return new NextResponse(JSON.stringify(userDetails));
     } catch (error) {
        console.log(error);
        
