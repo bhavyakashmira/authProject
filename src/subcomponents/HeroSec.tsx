@@ -18,7 +18,7 @@ function HeroSec() {
                 a reader{' '}
                 <span className="inline-block text-deep-purple-accent-400">to author</span>
               </h2>
-              <p className="text-gray-700 text-base md:text-lg">Our platform is a haven for writers, creators, and dreamers. Whether you're an aspiring novelist or an established author, this is where your stories come to life. Share your work with a community of passionate readers, connect with like-minded writers, and grow your audience. With easy-to-use tools, you can publish chapters, receive feedback, and build your own library of creative works. Join us and turn your ideas into stories that inspire, captivate, and resonate with the world.</p>
+              <p className="text-gray-700 text-base md:text-lg">Welcome to the home for writers, creators, and dreamers. Whether you’re crafting your first novel or sharing your latest masterpiece, this is where your stories come alive. Connect with passionate readers, collaborate with fellow writers, and grow your audience. With simple publishing tools, you can share chapters, gather feedback, and build a library of your own works. Join us to turn your ideas into stories that inspire and captivate the world.</p>
             </div>
             <div className="flex items-center space-x-3">
              

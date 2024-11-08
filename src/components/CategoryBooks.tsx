@@ -60,9 +60,7 @@ export const CategroyBooks = () => {
                     </h2>
                 </div>
                 <p className="w-full text-gray-700 lg:text-sm lg:max-w-md">
-                    "Sed ut perspiciatis unde omnis iste natus error sit iste voluptatem
-                    accusantium doloremque rem aperiam, ipsa eaque quae. Sed ut
-                    perspiciatis unde omnis iste."
+                  
                 </p>
             </div>
 

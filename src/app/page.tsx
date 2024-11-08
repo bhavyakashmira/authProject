@@ -19,7 +19,7 @@ interface HomeProps {
 export default function Home({ searchParams }: HomeProps) {
   
   const page = parseInt(searchParams.page || '1', 10);
-  const { status } = useSession();
+
 
   return (
     <div>

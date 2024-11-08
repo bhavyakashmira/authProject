@@ -10,7 +10,7 @@ type User = {
     email?: string | null
 };
 
-function Navbar() {
+ function Navbar() {
     const { data: session } = useSession();
     const [user, setUser] = useState<User | null>(null);
 
@@ -27,25 +27,29 @@ function Navbar() {
     const router = useRouter();
     const [search, setSearch] = useState("");
 
-    console.log(search);
 
-    useEffect
+ 
     
 
     return (
         <div className='p-2'>
             <div className='flex flex-row justify-between items-center gap-4'>
-
-                <div className='flex items-center bg-gray-300 rounded-xl p-2 w-full md:w-1/2 lg:w-1/3'>
-                    <Search size={25} className='text-gray-500' />
-
-                    <input
-                        placeholder="Search book name"
-                        onChange={(e) => setSearch(e.target.value)}
-                        className='bg-transparent w-full outline-none pl-2'
-                    />
+                <div className='flex'>
+                    <Image alt='brand' src={"/bookwormsvg.png"} height={100} width={200} />
+                 
                 </div>
+            
+                
                 <div className='flex items-center gap-4'>
+                    <div className='flex items-center bg-gray-300 rounded-xl p-2 w-full md:w-1/2 lg:w-2/3'>
+                        <Search size={25} className='text-gray-500' />
+
+                        <input
+                            placeholder="Search book name"
+                            onChange={(e) => setSearch(e.target.value)}
+                            className='bg-transparent w-full outline-none pl-2'
+                        />
+                    </div>
                     {user ? (
                         <div className='flex items-center gap-4'>
                             <PenBoxIcon onClick={() => router.push('/publish')} size={28} className="cursor-pointer" />

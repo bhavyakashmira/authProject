@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { app } from "@/utils/firebase";
 import { useSession, SessionContextValue } from 'next-auth/react';
 import Navbar from '@/subcomponents/Navbar';
+import Notification from '@/helper-function/Notifications';
 
 function Page() {
     const router = useRouter();
@@ -107,9 +108,10 @@ function Page() {
     return (
         <div>
             <Navbar />
+            <Notification notification={"You can Use deepai.org to generate coverImages"} />
             <ToastContainer />
 
-            <div className="p-8 bg-gray-50 rounded-lg shadow-lg max-w-md mx-auto">
+            <div className="p-8 my-20 bg-gray-50 rounded-lg shadow-lg max-w-md mx-auto">
                 <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-700 mb-2">Upload Image</label>
                     <input

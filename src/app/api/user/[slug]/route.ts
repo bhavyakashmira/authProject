@@ -2,6 +2,7 @@ import { authOptions, getAuthSessions } from "@/utils/auth";
 import prisma from "@/utils/connect";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
+import { getStorage, ref, deleteObject } from 'firebase/storage';
 
 interface UserProps {
     params: {

@@ -19,6 +19,7 @@ import { app } from "@/utils/firebase";
 import ReactQuill from "react-quill";
 import { File, Plus, VideoIcon } from "lucide-react";
 import { BiPhotoAlbum } from "react-icons/bi";
+import Notification from "@/helper-function/Notifications";
 
 interface WriteProps{
     params: {
@@ -133,58 +134,59 @@ const WritePage = ({params}:WriteProps) => {
 
     return (
         <div>
-            <ToastContainer/>
-        <div className={styles.container}>
+            <Notification notification ={"use Google docs , there is no save as draft"} />
+            <ToastContainer />
+            <div className={styles.container}>
 
-            <input
-                type="text"
-                placeholder="Title"
-                className={styles.input}
-                onChange={(e) => setTitle(e.target.value)}
-            />
-
-            <div className={styles.editor}>
-                <button className={styles.button} onClick={() => setOpen(!open)}>
-                    <Plus width={16} height={16} />
-                </button>
-                {open && (
-                    <div className={styles.add}>
-                        <input
-                            type="file"
-                            id="image"
-                            onChange={handleFileChange}
-                            style={{ display: "none" }}
-                        />
-                        
-                        <button className={styles.addButton}>
-                            <label htmlFor="image">
-                                <BiPhotoAlbum width={16} height={16} />
-                              
-                            </label>
-                        </button>
-                        <button className={styles.addButton}>
-                            <File width={16} height={16} />
-                         
-                        </button>
-                        <button className={styles.addButton}>
-                            <VideoIcon width={16} height={16} />  
-                        </button>
-                    </div>
-                    )}
-                    
-                <ReactQuill
-                   className={styles.textArea}
-                    theme="snow"
-                    value={value}
-                    onChange={setValue}
-                    placeholder="Tell your story..."
+                <input
+                    type="text"
+                    placeholder="Title"
+                    className={styles.input}
+                    onChange={(e) => setTitle(e.target.value)}
                 />
-            </div>
 
-            <button className={styles.publish} onClick={handleSubmit}>
-                Publish rn
+                <div className={styles.editor}>
+                    <button className={styles.button} onClick={() => setOpen(!open)}>
+                        <Plus width={16} height={16} />
+                    </button>
+                    {open && (
+                        <div className={styles.add}>
+                            <input
+                                type="file"
+                                id="image"
+                                onChange={handleFileChange}
+                                style={{ display: "none" }}
+                            />
+
+                            <button className={styles.addButton}>
+                                <label htmlFor="image">
+                                    <BiPhotoAlbum width={16} height={16} />
+
+                                </label>
+                            </button>
+                            <button className={styles.addButton}>
+                                <File width={16} height={16} />
+
+                            </button>
+                            <button className={styles.addButton}>
+                                <VideoIcon width={16} height={16} />
+                            </button>
+                        </div>
+                    )}
+
+                    <ReactQuill
+                        className={styles.textArea}
+                        theme="snow"
+                        value={value}
+                        onChange={setValue}
+                        placeholder="Tell your story..."
+                    />
+                </div>
+
+                <button className={styles.publish} onClick={handleSubmit}>
+                    Publish rn
                 </button>
-                
+
             </div>
         </div>
     );

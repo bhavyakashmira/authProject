@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { z } from "zod";
 
+
 const userSchema = z.object({
     date: z.date({ required_error: "Date of birth can not be null" }), 
     firstname: z.string().min(5, { message: "firstname is required" }),
@@ -24,6 +25,12 @@ function page() {
     const handleSubmit = async () => {
 
         const formData = { date, firstname, lastname, username, email };
+
+
+        
+
+        
+        
         const validation = userSchema.safeParse(formData);
 
         if (!validation.success) {
@@ -35,17 +42,16 @@ function page() {
             return;
         }
         setErrors({});
-        console.log(formData);
+
         
         await fetch(`/api/user/${email}`, {
             method: "POST",
-            body: JSON.stringify({formData})
+            body: JSON.stringify(formData)
         })
 
     }
 
-    console.log(errors);
-    
+ 
 
 
   return (
