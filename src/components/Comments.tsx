@@ -79,6 +79,10 @@ function Comments({ chapterSlug }:commentsProps) {
         }
     }
 
+
+
+    
+
     
        
    
@@ -112,6 +116,7 @@ function Comments({ chapterSlug }:commentsProps) {
               {isLoading ? (
                   <p className="text-gray-500">Loading comments...</p>
               ) : (
+                   
                   data?.map((item) => (
                       <div key={item.id} className="flex items-start p-4 border-b border-gray-200">
                           {item?.user?.image && (

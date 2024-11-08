@@ -43,96 +43,7 @@ export const Footer = () => {
                 </li>
               </ul>
             </div>
-            <div>
-              <p className="font-medium tracking-wide text-gray-300">Apples</p>
-              <ul className="mt-2 space-y-2">
-                <li>
-                  <a
-                    href="/"
-                    className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                  >
-                    Web
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/"
-                    className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                  >
-                    eCommerce
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/"
-                    className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                  >
-                    Business
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/"
-                    className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                  >
-                    Entertainment
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/"
-                    className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                  >
-                    Portfolio
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <p className="font-medium tracking-wide text-gray-300">Cherry</p>
-              <ul className="mt-2 space-y-2">
-                <li>
-                  <a
-                    href="/"
-                    className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                  >
-                    Media
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/"
-                    className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                  >
-                    Brochure
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/"
-                    className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                  >
-                    Nonprofit
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/"
-                    className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                  >
-                    Educational
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/"
-                    className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                  >
-                    Projects
-                  </a>
-                </li>
-              </ul>
-            </div>
+          
             <div>
               <p className="font-medium tracking-wide text-gray-300">
                 Business
@@ -199,7 +110,7 @@ export const Footer = () => {
         </div>
         <div className="flex flex-col justify-between pt-5 pb-10 border-t border-gray-800 sm:flex-row">
           <p className="text-sm text-gray-500">
-            © Copyright 2020 Lorem Inc. All rights reserved.
+            AuthorHub © Copyright 2024 Lorem Inc. All rights reserved.
           </p>
           <div className="flex items-center mt-4 space-x-4 sm:mt-0">
             <a

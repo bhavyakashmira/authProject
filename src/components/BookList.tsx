@@ -21,6 +21,7 @@ const BookList: React.FC<BookListProps> = ({ page=2  , cat=""  , bookcount }) =>
   const [error, setError] = useState<string | null>(null);
   const [count, setcount] = useState(0);
   const [category, setCategory] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -37,6 +38,8 @@ const BookList: React.FC<BookListProps> = ({ page=2  , cat=""  , bookcount }) =>
         setcount(total.count);
       } catch (error) {
         setError((error as Error).message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -84,6 +87,34 @@ const BookList: React.FC<BookListProps> = ({ page=2  , cat=""  , bookcount }) =>
           "Explore a curated collection of captivating books across genres. Dive into stories that inspire, inform, and entertain."
         </p>
       </div>
+
+      {loading && (
+        <section className=" ">
+        <div className="container  mx-auto animate-pulse">
+          <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="w-full ">
+              <div className="w-full h-64 bg-gray-300 rounded-lg md:h-72 dark:bg-gray-600"></div>
+
+              <h1 className="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
+              <p className="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+            </div>
+
+            <div className="w-full ">
+              <div className="w-full h-64 bg-gray-300 rounded-lg md:h-72 dark:bg-gray-600"></div>
+
+              <h1 className="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
+              <p className="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+            </div>
+
+            <div className="w-full ">
+              <div className="w-full h-64 bg-gray-300 rounded-lg md:h-72 dark:bg-gray-600"></div>
+
+              <h1 className="w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
+              <p className="w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+            </div>
+          </div>
+        </div>
+      </section>)}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {data?.map((book) => (

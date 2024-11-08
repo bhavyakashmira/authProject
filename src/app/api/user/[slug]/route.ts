@@ -12,7 +12,6 @@ interface UserProps {
 export async function GET(req:Request , {params}:UserProps) {
     try {
         const { slug } = params;
-        
         const user = await prisma.user.findUnique({
             where: {
                 username : slug,
@@ -27,7 +26,6 @@ export async function GET(req:Request , {params}:UserProps) {
             throw new Error('User not found');
         }
         const userId = user.id;
-
         const userDetails = await prisma.user.findUnique({
             where: {
                 id: userId,
@@ -61,9 +59,7 @@ export async function GET(req:Request , {params}:UserProps) {
 
         return new NextResponse(JSON.stringify(userDetails));
     } catch (error) {
-       console.log(error);
-       
-        return NextResponse.json({ message: "something wrong" })
+        return NextResponse.json({ message: "something wrong" } , {status: 500})
     }
 }
 

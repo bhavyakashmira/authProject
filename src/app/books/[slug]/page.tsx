@@ -249,19 +249,46 @@ const Page: React.FC<BookPageProps> = ({ params }) => {
                 </div>
 
                
-            </> : <div className="flex items-center justify-center h-screen">
-                <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
-                    <h2 className="text-2xl font-bold text-white mb-4">No Book Found</h2>
-                    <p className="text-gray-400 mb-6">It seems there is no Book available at the moment.</p>
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                        Go Back
-                    </button>
-                </div>
-            </div>}
+            </> :
                 
-         
-            
-            
+                <div>
+                    <div className="flex flex-col items-center p-8">
+                        <p className="w-32 h-32 bg-gray-200 rounded-full dark:bg-gray-700 ring-4 ring-gray-300 dark:ring-gray-600"></p>
+                        <h1 className="w-40 h-2 mx-auto mt-6 bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
+
+                        <p className="w-32 h-2 mx-auto mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+
+                        <p className="w-56 h-2 mx-auto mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                    </div>
+                    <div className='grid md:grid-cols-3' >
+                        <div className="w-full max-w-md mx-auto animate-pulse p-9">
+                            <h1 className="h-2 bg-gray-300 rounded-lg w-52 dark:bg-gray-600"></h1>
+
+                            <p className="w-48 h-2 mt-6 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                            <p className="w-full h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                            <p className="w-64 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                            <p className="w-4/5 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                        </div>
+                        <div className="w-full max-w-md mx-auto animate-pulse p-9">
+                            <h1 className="h-2 bg-gray-300 rounded-lg w-52 dark:bg-gray-600"></h1>
+
+                            <p className="w-48 h-2 mt-6 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                            <p className="w-full h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                            <p className="w-64 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                            <p className="w-4/5 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                        </div>
+                        <div className="w-full max-w-md mx-auto animate-pulse p-9">
+                            <h1 className="h-2 bg-gray-300 rounded-lg w-52 dark:bg-gray-600"></h1>
+
+                            <p className="w-48 h-2 mt-6 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                            <p className="w-full h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                            <p className="w-64 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                            <p className="w-4/5 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                        </div>
+                 </div>
+                
+              </div>
+            }
         </div>
     );
 };

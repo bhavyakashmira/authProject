@@ -26,7 +26,6 @@ export default function Home({ searchParams }: HomeProps) {
       <Navbar />
       <HeroSec />
       <BookList page={page} />
-      <Feature/>
       <CategroyBooks/>
       <Footer/>
    </div>

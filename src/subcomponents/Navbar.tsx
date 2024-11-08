@@ -27,11 +27,18 @@ function Navbar() {
     const router = useRouter();
     const [search, setSearch] = useState("");
 
+    console.log(search);
+
+    useEffect
+    
+
     return (
         <div className='p-2'>
             <div className='flex flex-row justify-between items-center gap-4'>
+
                 <div className='flex items-center bg-gray-300 rounded-xl p-2 w-full md:w-1/2 lg:w-1/3'>
                     <Search size={25} className='text-gray-500' />
+
                     <input
                         placeholder="Search book name"
                         onChange={(e) => setSearch(e.target.value)}

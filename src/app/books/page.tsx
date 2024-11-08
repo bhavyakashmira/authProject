@@ -23,7 +23,6 @@ function page({ searchParams }: blogpageProp) {
             <CategroyBooks />
             <BookList bookcount={10} page={page} cat={cat} />
             <CategroyBooks />
-            <CategroyBooks />
             <Footer/>
         </div>
     )

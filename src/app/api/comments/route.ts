@@ -19,7 +19,6 @@ export const GET = async (req: Request) => {
             include:{user:true}
         })
 
-   
         return new NextResponse(JSON.stringify(comments));
     } catch (e) {
         return new NextResponse(JSON.stringify({ "message": "something wrong" }))

@@ -12,6 +12,7 @@ import {
 } from "firebase/storage";
 import { app } from "@/utils/firebase";
 import { useAppContext } from '@/context';
+import NotFound from '@/components/NotFound';
 
 
 type User = {
@@ -162,6 +163,7 @@ function Page({ params }: PageProps) {
     }
   };
 
+  console.log(user);
 
   return (
     <div className='flex-[4_4_0] border-r border-gray-700 min-h-screen'>
@@ -174,7 +176,7 @@ function Page({ params }: PageProps) {
               </button>
               <div className='flex flex-col'>
                 <p className='font-bold text-lg'>{user.name}</p>
-                <span className='text-sm text-slate-500'>{user.books.length} works</span>
+                <span className='text-sm text-slate-500'>{user.books?.length} works</span>
               </div>
             </div>
 
@@ -232,8 +234,7 @@ function Page({ params }: PageProps) {
                 <span className='font-bold text-lg'>{user.name}</span>
                 <div className='flex justify-between items-center'>
                   <span className='text-sm text-slate-500'>{user.username}</span>
-                  <UserPlus color='#000' />
-                  <UserCheck color='#0000FF' />
+                 
                 </div>
                
                 <span className='text-sm my-1'>{user.bio}</span>
@@ -249,7 +250,7 @@ function Page({ params }: PageProps) {
            
           </>
         ) : (
-          <p>No user found</p>
+          <NotFound/>
         )}
       </div>
     </div>
