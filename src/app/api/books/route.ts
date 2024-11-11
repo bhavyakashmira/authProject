@@ -9,7 +9,7 @@ export const GET = async (req: Request) => {
     const pageParam = url.searchParams.get('page');
     const page = pageParam ? parseInt(pageParam, 10) : 1;
     const cat = url.searchParams.get("cat");
-    const Post_per_page = 3;
+    const Post_per_page = 6;
     const query = {
         take: Post_per_page,
         skip: Post_per_page * (page - 1),
